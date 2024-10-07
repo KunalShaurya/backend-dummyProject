@@ -3,12 +3,9 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 
 const app = express();
-// const PORT = 8000;
-const PORT = process.env.PORT || 8000; 
 dotenv.config();
 
 mongoose
-  // .connect("mongodb://127.0.0.1:27017/dummy-Project")
   .connect(process.env.DB_URL)
   .then(() => console.log("mongoDb connected"))
   .catch((err) => console.log("mongoDB err", err));
@@ -127,9 +124,7 @@ app.post("/api/users", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => {
-  console.log(`server started:${PORT}`);
-});
+
 
 
 
