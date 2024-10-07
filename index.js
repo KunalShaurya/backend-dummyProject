@@ -1,13 +1,15 @@
 import express from "express";
-import users from "./MOCK_DATA.json" assert { type: "json" };
-import fs from "fs";
 import mongoose from "mongoose";
+import dotenv from "dotenv";
 
 const app = express();
-const PORT = 8000;
+// const PORT = 8000;
+const PORT = process.env.PORT || 8000; 
+dotenv.config();
 
 mongoose
-  .connect("mongodb://127.0.0.1:27017/dummy-Project")
+  // .connect("mongodb://127.0.0.1:27017/dummy-Project")
+  .connect(process.env.DB_URL)
   .then(() => console.log("mongoDb connected"))
   .catch((err) => console.log("mongoDB err", err));
 
@@ -20,8 +22,8 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    
-    lastName: {
+
+    lastName: { 
       type: String,
     },
     email: {
@@ -128,3 +130,7 @@ app.post("/api/users", async (req, res) => {
 app.listen(PORT, () => {
   console.log(`server started:${PORT}`);
 });
+
+
+
+export default app;
