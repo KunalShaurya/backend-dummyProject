@@ -6,9 +6,12 @@ const app = express();
 dotenv.config();
 
 mongoose
-  .connect(process.env.DB_URL)
-  .then(() => console.log("mongoDb connected"))
-  .catch((err) => console.log("mongoDB err", err));
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
