@@ -4,8 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon  app.js",
-    "build": "echo 'No build step required for this project'"
+    "start": "nodemon  app.js"
   },
   "author": "",
   "license": "ISC",
