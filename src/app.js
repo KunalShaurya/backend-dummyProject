@@ -5,6 +5,10 @@ import dotenv from "dotenv";
 const app = express();
 dotenv.config();
 
+const cors = require("cors");
+app.use(cors());
+
+
 mongoose
   .connect(process.env.DB_URL, {
     useNewUrlParser: true,
