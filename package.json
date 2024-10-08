@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon  app.js",
-     "vercel-build": "npm run build"
+    "build": "echo 'No build step required for this project'"
   },
   "author": "",
   "license": "ISC",
