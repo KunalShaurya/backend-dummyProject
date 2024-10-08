@@ -1,63 +1,24 @@
 import express from "express";
 import mongoose from "mongoose";
-import cors from "cors";
 import dotenv from "dotenv";
 
 const app = express();
 dotenv.config();
 
+const cors = require("cors");
 app.use(cors());
 
-app.use((req, res, next) => {
-  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
-  next();
-});
 
-// Global variable to track the connection status
-let isConnected = false;
-
-// Function to handle database connection
-const connectToDatabase = async () => {
-  if (isConnected) {
-    // Use existing database connection
-    return;
-  }
-
-  try {
-    await mongoose.connect(process.env.DB_URL, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    isConnected = true;
-    console.log("MongoDB connected");
-  } catch (err) {
-    console.error("MongoDB connection error:", err);
-    throw err;
-  }
-};
-
-// Middleware to ensure the database connection is established
-app.use(async (req, res, next) => {
-  try {
-    await connectToDatabase();
-    next();
-  } catch (err) {
-    res.status(500).json({ message: "Database connection error" });
-  }
-});
+mongoose
+  .connect(process.env.DB_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log("MongoDB connected"))
+  .catch((err) => console.error("MongoDB connection error:", err));
 
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
-
-// Serve static files from the 'public' directory
-app.use(express.static("public"));
-
-// Define route for root path
-app.get("/", (req, res) => {
-  res.send("Welcome to the API. Use /users to access user data.");
-});
-
-
 
 const userSchema = mongoose.Schema(
   {
