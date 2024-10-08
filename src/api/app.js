@@ -9,7 +9,10 @@ dotenv.config();
 const cors = require("cors");
 app.use(cors());
 
-
+app.use((req, res, next) => {
+  res.set("Cache-Control", "no-store, no-cache, must-revalidate, private");
+  next();
+});
 mongoose
   .connect(process.env.DB_URL, {
     useNewUrlParser: true,
