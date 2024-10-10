@@ -20,23 +20,23 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 
-const authenticate = (req, res, next) => {
-  const token = req.header("Authorization")?.replace("Bearer ", "");
+// const authenticate = (req, res, next) => {
+//   const token = req.header("Authorization")?.replace("Bearer ", "");
 
-  if (!token) {
-    return res
-      .status(401)
-      .json({ message: "No token provided, authorization denied" });
-  }
+//   if (!token) {
+//     return res
+//       .status(401)
+//       .json({ message: "No token provided, authorization denied" });
+//   }
 
-  try {
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded;
-    next(); // Call the next middleware or route handler
-  } catch (err) {
-    return res.status(401).json({ message: "Token is not valid" });
-  }
-};
+//   try {
+//     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+//     req.user = decoded;
+//     next(); // Call the next middleware or route handler
+//   } catch (err) {
+//     return res.status(401).json({ message: "Token is not valid" });
+//   }
+// };
 
 
 const userSchema = mongoose.Schema(
@@ -65,7 +65,7 @@ const userSchema = mongoose.Schema(
 const User = mongoose.model("user", userSchema);
 
 //user data
-app.get("/api/users", authenticate ,async (req, res) => {
+app.get("/api/users", async (req, res) => {
   try {
     const allDbUsers = await User.find({});
      const userCount = allDbUsers.length; 
