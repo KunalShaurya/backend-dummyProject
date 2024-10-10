@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import User from "../models/users.js"
 
 const app = express();
 dotenv.config();
@@ -39,30 +40,30 @@ app.use(express.json());
 // };
 
 
-const userSchema = mongoose.Schema(
-  {
-    firstName: {
-      type: String,
-      required: true,
-    },
+// const userSchema = mongoose.Schema(
+//   {
+//     firstName: {
+//       type: String,
+//       required: true,
+//     },
 
-    lastName: {
-      type: String,
-    },
-    password: { type: String, required: true },
-    email: {
-      type: String,
-      required: true,
-      unique: true,
-    },
-    gender: {
-      type: String,
-    },
-  },
-  { timestamps: true }
-);
+//     lastName: {
+//       type: String,
+//     },
+//     password: { type: String, required: true },
+//     email: {
+//       type: String,
+//       required: true,
+//       unique: true,
+//     },
+//     gender: {
+//       type: String,
+//     },
+//   },
+//   { timestamps: true }
+// );
 
-const User = mongoose.model("user", userSchema);
+// const User = mongoose.model("user", userSchema);
 
 //user data
 app.get("/api/users", async (req, res) => {
